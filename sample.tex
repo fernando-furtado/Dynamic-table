@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{booktabs}
+\usepackage{pgfplotstable}
+\usepackage{booktabs,colortbl}
+\usepackage{longtable}
+\usepackage{array}
+\pgfplotsset{compat=1.16}
+
+
+\newcounter{Count} % It does the counting
+
+
+
+\begin{document}
+
+%\begin{table}[h]
+%  \centering
+
+%% ---- Ensaios Ds1
+
+\begin{center}
+  Your Title % if needed
+\end{center}
+
+\begin{center}
+\pgfplotstabletypeset[%
+  begin table=\begin{longtable},
+  assign column name/.style={
+        /pgfplots/table/column name={\textbf{#1}}
+    },
+   %every first column/.style={column type/.add={>{\makebox[3em][l]{\arabic{Count}\stepcounter{Count}~}}}{} },
+   every odd row/.style={before row={\rowcolor[gray]{0.9}}},
+   every head row/.style={before row=\toprule,
+                             after row=\midrule},
+   every last row/.style={after row=\bottomrule},
+   empty cells with={---},
+   col sep=space,
+   header=true,
+   string type,
+   display columns/0/.style={column name = Name, column type = {l}, column type/.add={>{\makebox[3em][l]{\arabic{Count}\stepcounter{Count}~}}}{}},
+   display columns/1/.style={column name = Major, column type = {c}},
+   display columns/2/.style={column name = Year, column type = {l}},
+   display columns/3/.style={column name = Grade, column type = {c}},
+   begin table=\begin{longtable},
+   every first row/.append style={before row={%
+    \endfirsthead
+    %\multicolumn{4}{l}%
+    %{{\bfseries \thetable\ Continued from previous page}} \\
+    \toprule
+    %
+    %\textbf{Name} & \textbf{Major} & \textbf{Year} & \textbf{Grade}   \\ \toprule
+    \endhead
+    %
+    \midrule \multicolumn{4}{r}{{Continued on next page}} \\ \bottomrule
+    \endfoot
+    %
+    \midrule
+    \multicolumn{4}{r}{{Concluded}} \\ \bottomrule
+    \endlastfoot
+    }},
+    end table=\end{longtable},
+   ]{sampleData.txt}
+\end{center}
+%\end{table}
+
+\end{document}
